@@ -1,18 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
-
-type Comment = {
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-};
+import type { Post, Comment } from "@/lib/apis";
 
 export default function PostDetails({
   post,

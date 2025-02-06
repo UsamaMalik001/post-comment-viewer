@@ -1,10 +1,7 @@
 import { Button } from "@/components/ui/button";
+import type { Post } from "@/lib/apis";
 import Link from "next/link";
 
-type Post = {
-  id: number;
-  title: string;
-};
 export default function PostsList({ posts }: { posts: Post[] }) {
   return (
     <ul className="space-y-4">

@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { addPost } from "@/lib/apis";
 import { Textarea } from "../ui/textarea";
+import { useSWRConfig } from "swr";
 
 type FormData = {
   title: string;
@@ -19,12 +20,14 @@ export default function AddPostForm() {
     reset,
     formState: { errors },
   } = useForm<FormData>();
+  const { mutate } = useSWRConfig();
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
       await addPost(data);
       reset();
+      mutate("/posts");
       alert("Post added successfully!");
     } catch (error) {
       console.error("Error adding post:", error);

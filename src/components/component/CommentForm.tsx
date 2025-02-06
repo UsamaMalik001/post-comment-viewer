@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { addComment } from "@/lib/apis";
+import { useSWRConfig } from "swr";
 
 type FormData = {
   name: string;
@@ -21,12 +22,14 @@ export default function AddCommentForm({ postId }: { postId: string }) {
     reset,
     formState: { errors },
   } = useForm<FormData>();
+  const { mutate } = useSWRConfig();
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
       await addComment({ ...data, postId });
       reset();
+      mutate(`/comments?postId=${postId}`);
       alert("Comment added successfully!");
     } catch (error) {
       console.error("Error adding comment:", error);
