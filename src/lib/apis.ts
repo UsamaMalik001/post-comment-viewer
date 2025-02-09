@@ -12,15 +12,21 @@ export const getComments = (postId: string) =>
   fetcher<Comment[]>(`${API_BASE}/comments?postId=${postId}`);
 
 export async function addPost(data: { title: string; body: string }) {
-  const res = await fetch(`${API_BASE}/posts`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-  if (!res.ok) throw new Error("Failed to add post");
-  return res.json();
+  try {
+    const res = await fetch(`${API_BASE}/posts`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
+    if (!res.ok) throw new Error("Failed to add post");
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function addComment(data: {
@@ -29,15 +35,21 @@ export async function addComment(data: {
   email: string;
   body: string;
 }) {
-  const res = await fetch(`${API_BASE}/comments`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-  if (!res.ok) throw new Error("Failed to add comment");
-  return res.json();
+  try {
+    const res = await fetch(`${API_BASE}/comments`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+
+    if (!res.ok) throw new Error("Failed to add comment");
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export type Post = {
